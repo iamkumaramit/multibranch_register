@@ -19,7 +19,7 @@ pipeline {
                 changeSetRegResult = snDevOpsConfigRegisterPipeline(
                         applicationName:"${appName}",
                         changesetNumber:"${changesetNumber}"
-                        snapshotName:"${snapshotName}"
+                        //,snapshotName:"${snapshotName}"
                         ,showResults:true)
 
                 echo "Pipeline registration result: ${changeSetRegResult}"  
