@@ -11,6 +11,20 @@ pipeline {
           
           }
         }
+      stage('cat README') {
+
+     when {
+
+       branch "fix-*"
+
+     }
+
+     steps {
+        echo "this is from branch fix-*"
+
+     }
+
+   }
         stage("Register pipeline using Snapshot"){
           steps{
               echo "Registering pipeline using snapshotName:${snapshotName}"
