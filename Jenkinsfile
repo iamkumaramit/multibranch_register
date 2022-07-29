@@ -177,11 +177,18 @@ pipeline {
             steps{
                 echo "Initating change request for APPLICATION:=${appName} for SNAPSHOT:=${snapshotName}"
                 script{
+                  if(snapshotName != null){
+                    echo"################# Creating CR with AppName:=${appName} and SnapName:=${snapshotName}"
                     changeSetCreateResult = snDevOpsChange(
-                        applicationName:"${appName}",
-                        snapshotName:"${snapshotName}"
-                        )
-                    echo ">>>>>>>>>>>${changeSetCreateResult}<<<<<<<<<<<<"  
+                      applicationName:"${appName}",
+                      snapshotName:"${snapshotName}"
+                    )
+                  }else{
+                    echo"################# Creating generic CR"
+                    changeSetCreateResult = snDevOpsChange()
+                  }
+                    
+                    echo "################# CR creation result:=${changeSetCreateResult}"  
                   
                 }
             }
