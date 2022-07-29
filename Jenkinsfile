@@ -1,6 +1,6 @@
 def appName='jenkins_test_app'
 def changesetNumber='Chset-10'
-def snapshotName =''
+def snapshotName =null
 def changeSetRegResult=''
 def changeSetResults=''
 pipeline {
