@@ -162,6 +162,7 @@ pipeline {
           steps{
               echo "################# Registering pipeline again using changesetNumber:${changesetNumber}"
               script{
+                sleep 5
                 changeSetRegResult = snDevOpsConfigRegisterPipeline(
                         applicationName:"${appName}",
                         changesetNumber:"${changesetNumber}"
