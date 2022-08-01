@@ -188,7 +188,7 @@ pipeline {
                     // changeSetCreateResult = snDevOpsChange()
                   }
                     
-                    echo "################# CR creation result:=${changeSetCreateResult}"  
+                    // echo "################# CR creation result:=${changeSetCreateResult}"  
                   
                 }
             }
