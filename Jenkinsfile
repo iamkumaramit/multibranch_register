@@ -33,9 +33,29 @@ pipeline {
             branch "preprod-*"
 
           }
-
           steps {
+            git branch: 'preprod-1', url: 'https://github.com/iamkumaramit/multibranch_register.git'
+            // the e2e sceanrio for the test branch
             script{
+              // Uploading the config file
+                uploadResults = snDevOpsConfigUpload(
+                         applicationName: "${appName}",
+                         deployableName: "preprod",
+                         changesetNumber:"",
+                         dataFormat: "json",
+                         configFile: "configPreprod.json",
+                         target:"deployable",
+                         namePath: "/configUpload/${currentBuild.number}",
+                         autoCommit:true,
+                         autoValidate:true,
+                         convertPath:false,
+                         showResults:true,
+                         markFailed:false
+                 )
+                echo "################# uploadResults:= ${uploadResults}"
+              
+              //Getting the snapshot details
+              sleep 10
               changeSetResults = snDevOpsConfigGetSnapshots(
                 applicationName: "${appName}",
                 changesetNumber: "",
@@ -59,15 +79,42 @@ pipeline {
               sleep 5
               changeSetRegResult = snDevOpsConfigRegisterPipeline(
                 applicationName:"${appName}",
-                // changesetNumber:"${changesetNumber}"
                 snapshotName:"${snapshotName}"
                 ,showResults:true
               )
 
               echo"################# Registration result:=${changeSetRegResult}"
 
+              //publishing the snapshot 
+              sleep 5
+              publishResult = snDevOpsConfigPublish(
+                    applicationName:"${appName}",
+                    deployableName:"preprod",
+                    snapshotName: "${snapshotName}",
+                    showResults:true,
+                    markFailed:false
+                )
+              echo"################# Publish result:= ${publishResult}"
+
+              //Exporting the snapshot
+              sleep 5
+              exportResult = snDevOpsConfigExport(
+              applicationName: "${appName}", 
+              snapshotName: "", 
+              deployableName: "preprod", 
+              exporterFormat: "json", 
+              fileName:"${appName}-preprod-${currentBuild.number}.json", 
+              exporterName: "returnAllData-now",
+              showResults:true,
+              markFailed:false
+              )
+
+              echo"################# Export result:= ${exportResult}"
+
             }
           }
+
+
 
         }
         stage('Register for Prod') {
