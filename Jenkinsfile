@@ -179,16 +179,16 @@ pipeline {
                 script{
                   if(snapshotName != null){
                     echo"################# Creating CR with AppName:=${appName} and SnapName:=${snapshotName}"
-                    changeSetCreateResult = snDevOpsChange(
-                      applicationName:"${appName}",
-                      snapshotName:"${snapshotName}"
-                    )
+                    // changeSetCreateResult = snDevOpsChange(
+                    //   applicationName:"${appName}",
+                    //   snapshotName:"${snapshotName}"
+                    // )
                   }else{
                     echo"################# Creating generic CR"
-                    changeSetCreateResult = snDevOpsChange()
+                    // changeSetCreateResult = snDevOpsChange()
                   }
                     
-                    echo "################# CR creation result:=${changeSetCreateResult}"  
+                    // echo "################# CR creation result:=${changeSetCreateResult}"  
                   
                 }
             }
