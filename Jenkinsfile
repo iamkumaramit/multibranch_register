@@ -56,7 +56,7 @@ pipeline {
               }
 
               echo"################# Snapshot going to be registered:= ${snapshotName}"
-            
+              Sleep 5
               changeSetRegResult = snDevOpsConfigRegisterPipeline(
                 applicationName:"${appName}",
                 // changesetNumber:"${changesetNumber}"
