@@ -3,6 +3,9 @@ def changesetNumber='Chset-10'
 def snapshotName =''
 def changeSetRegResult=''
 def changeSetResults=''
+def uploadResults=''
+def publishResult=''
+def exportResult=''
 pipeline {
    agent any
    stages {
@@ -122,7 +125,28 @@ pipeline {
           }
 
           steps {
+            git branch: 'test-1', url: 'https://github.com/iamkumaramit/multibranch_register.git'
+            // the e2e sceanrio for the test branch
             script{
+              // Uploading the config file
+                uploadResults = snDevOpsConfigUpload(
+                         applicationName: "${appName}",
+                         deployableName: "test",
+                         changesetNumber:"",
+                         dataFormat: "json",
+                         configFile: "configTest.json",
+                         target:"deployable",
+                         namePath: "/configUpload/${currentBuild.number}",
+                         autoCommit:true,
+                         autoValidate:true,
+                         convertPath:false,
+                         showResults:true,
+                         markFailed:false
+                 )
+                echo "################# uploadResults:= ${uploadResults}"
+              
+              //Getting the snapshot details
+              sleep 10
               changeSetResults = snDevOpsConfigGetSnapshots(
                 applicationName: "${appName}",
                 changesetNumber: "",
@@ -143,7 +167,7 @@ pipeline {
               }
 
               echo"################# Snapshot going to be registered:= ${snapshotName}"
-            sleep 5
+              sleep 5
               changeSetRegResult = snDevOpsConfigRegisterPipeline(
                 applicationName:"${appName}",
                 snapshotName:"${snapshotName}"
@@ -151,6 +175,32 @@ pipeline {
               )
 
               echo"################# Registration result:=${changeSetRegResult}"
+
+              //publishing the snapshot 
+              sleep 5
+              publishResult = snDevOpsConfigPublish(
+                    applicationName:"${appName}",
+                    deployableName:"test",
+                    snapshotName: "${snapshotName}",
+                    showResults:true,
+                    markFailed:false
+                )
+              echo"################# Publish result:= ${publishResult}"
+
+              //Exporting the snapshot
+              sleep 5
+              exportResult = snDevOpsConfigExport(
+              applicationName: "${appName}", 
+              snapshotName: "", 
+              deployableName: "test", 
+              exporterFormat: "json", 
+              fileName:"${appName}-test-${currentBuild.number}.json", 
+              exporterName: "returnAllData-now",
+              showResults:true,
+              markFailed:false
+              )
+
+              echo"################# Export result:= ${exportResult}"
 
             }
           }
