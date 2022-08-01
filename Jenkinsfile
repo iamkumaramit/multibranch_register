@@ -182,7 +182,7 @@ pipeline {
                     // changeSetCreateResult = snDevOpsChange(
                     //   applicationName:"${appName}",
                     //   snapshotName:"${snapshotName}"
-                    )
+                    // )
                   }else{
                     echo"################# Creating generic CR"
                     // changeSetCreateResult = snDevOpsChange()
