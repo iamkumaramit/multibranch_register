@@ -90,7 +90,7 @@ pipeline {
               publishResult = snDevOpsConfigPublish(
                     applicationName:"${appName}",
                     deployableName:"preprod",
-                    snapshotName: "${snapshotName}",
+                    snapshotName: "Preprod-v1.dpl",
                     showResults:true,
                     markFailed:false
                 )
