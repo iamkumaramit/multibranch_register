@@ -177,15 +177,15 @@ pipeline {
               echo"################# Registration result:=${changeSetRegResult}"
 
               //publishing the snapshot 
-              sleep 5
-              publishResult = snDevOpsConfigPublish(
-                    applicationName:"${appName}",
-                    deployableName:"test",
-                    snapshotName: "Test-v1.dpl",
-                    showResults:true,
-                    markFailed:false
-                )
-              echo"################# Publish result:= ${publishResult}"
+//               sleep 5
+//               publishResult = snDevOpsConfigPublish(
+//                     applicationName:"${appName}",
+//                     deployableName:"test",
+//                     snapshotName: "Test-v1.dpl",
+//                     showResults:true,
+//                     markFailed:false
+//                 )
+//               echo"################# Publish result:= ${publishResult}"
 
               //Exporting the snapshot
               sleep 5
