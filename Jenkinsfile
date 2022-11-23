@@ -181,7 +181,7 @@ pipeline {
               publishResult = snDevOpsConfigPublish(
                     applicationName:"${appName}",
                     deployableName:"test",
-                    snapshotName: "${snapshotName}",
+                    snapshotName: "Test-v1.dpl",
                     showResults:true,
                     markFailed:false
                 )
