@@ -1,5 +1,5 @@
 def appName='jenkins_test_app'
-def changesetNumber='Chset-61'
+def changesetNumber='Chset-41'
 def snapshotName =''
 def changeSetRegResult=''
 def changeSetResults=''
